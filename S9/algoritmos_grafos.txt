@@ -1,0 +1,42 @@
+function GreedyBFS(Grafo G(V, E), int i, int f, H[])
+{
+	for(int i=0;i<|V|;i++)
+		visited[i] = false;
+    MinHeap Q(|V|);
+    visited[i] = true; // add to solution
+    Q.push(i, H[i]);
+    while (!visited[f]) {					//O(n^2 * log n)      
+        (x, h) = Q.extractMin();   			//O(log n)        
+        foreach(v[j] adjacent to v[x])      //O(n * log n)      
+            if (!visited[j]) {
+                visited[j] = true;  // add to solution
+				parent[j] = i;
+                Q.push(j, H[j]);           //O(log n)
+            }
+            
+    }
+	return path(parent, i, f);
+}
+
+function Astar(Graph G(V, E), int u, int f, int H[])//O(E)
+{	
+    for (i = 0; i < V.length; i++) {
+        g[i] = INF;   
+	    f[i] = INF; 
+        visited[i] = false;
+    }		
+    g[u] = 0;
+    f[u] = g[u] + H[u]; 	
+	while (!visited[f])                            //O(V)*(O(V) + O(V^2))
+    {
+        V[i] =  minDistance(f, visited);           //O(V) 
+        visited[i] = true;
+        foreach(V[j] adjacent to V[i])             //O(V^2)
+	        if(g[i] + G.weight(i, j) < g[j]){      //O(V)
+	            g[j] = g[i] + G.weight(i, j);
+				f[j] = g[j] + H[j]; 
+				parent[j] = i;
+			}
+		  
+    }   
+}
